@@ -2,9 +2,9 @@
   "name": "react-native-paper",
   "version": "3.4.0",
   "description": "Material design for React Native",
-  "main": "lib/commonjs/index.js",
-  "module": "lib/module/index.js",
-  "react-native": "lib/module/index.js",
+  "main": "src/index.tsx",
+  "module": "src/index.tsx",
+  "react-native": "src/index.tsx",
   "types": "lib/typescript/src/index.d.ts",
   "files": [
     "lib",
