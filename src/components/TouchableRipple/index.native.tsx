@@ -3,15 +3,17 @@ import {
   BackgroundPropType,
   StyleProp,
   Platform,
-  TouchableHighlight,
-  TouchableNativeFeedback,
-  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
 import color from 'color';
 import { withTheme } from '../../core/theming';
 import { Theme } from '../../types';
+import {
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 const ANDROID_VERSION_PIE = 28;
@@ -66,19 +68,18 @@ class TouchableRipple extends React.Component<Props> {
       borderless;
 
     if (TouchableRipple.supported) {
+      // @ts-ignore - for now, because of the missing TouchableNativeFeedback.Ripple type def
+      const fallbackBackground = TouchableNativeFeedback.Ripple(
+        calculatedRippleColor,
+        borderless
+      );
+
       return (
         <TouchableNativeFeedback
           {...rest}
           disabled={disabled}
           useForeground={useForeground}
-          background={
-            background != null
-              ? background
-              : TouchableNativeFeedback.Ripple(
-                  calculatedRippleColor,
-                  borderless
-                )
-          }
+          background={background != null ? background : fallbackBackground}
         >
           <View style={[borderless && { overflow: 'hidden' }, style]}>
             {React.Children.only(children)}
